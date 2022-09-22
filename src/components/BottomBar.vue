@@ -40,7 +40,7 @@
 
   <div class="bottom__menu">
     <button
-      class="bottom__menu__start-btn hover_light active_darker"
+      class="bottom__menu__start-btn windows-btn"
       @click.stop="toggleShowStartMenu"
     >
       <img

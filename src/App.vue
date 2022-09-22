@@ -1,5 +1,6 @@
 <template>
   <div @click="toggleShowStartMenu('hide')">
+    <WindowWrapper />
     <DesktopGrid />
     <BottomBar />
   </div>
@@ -10,12 +11,14 @@
 import DesktopGrid from "@/components/DesktopGrid";
 import BottomBar from "@/components/BottomBar";
 import {mapMutations} from "vuex";
+import WindowWrapper from "@/components/WindowWrapper";
 
 export default {
   name: 'App',
   components: {
     DesktopGrid,
-    BottomBar
+    BottomBar,
+    WindowWrapper
   },
   methods: {
     ...mapMutations(['toggleShowStartMenu'])
@@ -40,11 +43,12 @@ body {
 }
 
 /* Class for mixing */
-.hover_light:hover {
-  filter: brightness(1.1);
-}
-
-.active_darker:active {
-  filter: brightness(0.9) !important;
+.windows-btn {
+  &:hover {
+    filter: brightness(1.1);
+  }
+  &:active {
+    filter: brightness(0.9) !important;
+  }
 }
 </style>

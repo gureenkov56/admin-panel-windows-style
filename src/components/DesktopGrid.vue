@@ -78,7 +78,6 @@ export default {
   &__grid {
     height: 85px;
     width: 80px;
-    border: 1px solid black;
   }
 
   &__icon {

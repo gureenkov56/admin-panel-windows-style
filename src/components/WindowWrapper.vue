@@ -1,6 +1,11 @@
 <template>
   <div class="window">
-    <div class="window__header">
+    <div
+      class="window__header"
+      @mousedown="headerMouseDown($event)"
+      @mousemove="headerMouseMove($event)"
+      @mouseup="drugAndDropWindow = false"
+    >
       <span class="window__header__name">
         <img
           src="../assets/img/folder-icon.png"
@@ -21,88 +26,108 @@
       </div>
     </div>
 
-    <div class="windows__folder__body">
-      <div class="windows__folder__body__left">
-        <div class="windows__folder__body__left__menuWrapper">
-          <div class="windows__folder__body__left__menuWrapper__header">
-            <span>Действия</span>
-            <img
-              src="../assets/img/folder-leftmenu-icon.png"
-              alt="hider-icon"
-            >
-          </div>
-          <div class="windows__folder__body__left__menuWrapper__body">
-            <ul>
-              <li id="createNewPost">
-                Создать новый пост
-              </li>
-              <li class="disable-link">
-                Опубликовать пост
-              </li>
-              <li class="disable-link">
-                Категории
-              </li>
-            </ul>
-          </div>
-        </div>
+    <!--    <div class="windows__folder__body">-->
+    <!--      <div class="windows__folder__body__left">-->
+    <!--        <div class="windows__folder__body__left__menuWrapper">-->
+    <!--          <div class="windows__folder__body__left__menuWrapper__header">-->
+    <!--            <span>Действия</span>-->
+    <!--            <img-->
+    <!--              src="../assets/img/folder-leftmenu-icon.png"-->
+    <!--              alt="hider-icon"-->
+    <!--            >-->
+    <!--          </div>-->
+    <!--          <div class="windows__folder__body__left__menuWrapper__body">-->
+    <!--            <ul>-->
+    <!--              <li id="createNewPost">-->
+    <!--                Создать новый пост-->
+    <!--              </li>-->
+    <!--              <li class="disable-link">-->
+    <!--                Опубликовать пост-->
+    <!--              </li>-->
+    <!--              <li class="disable-link">-->
+    <!--                Категории-->
+    <!--              </li>-->
+    <!--            </ul>-->
+    <!--          </div>-->
+    <!--        </div>-->
 
-        <div class="windows__folder__body__left__menuWrapper">
-          <div class="windows__folder__body__left__menuWrapper__header">
-            <span>Директории</span>
-            <img
-              src="../assets/img/folder-leftmenu-icon.png"
-              alt="hider-icon"
-            >
-          </div>
-          <div class="windows__folder__body__left__menuWrapper__body">
-            <ul class="disable-link">
-              <li>Категории</li>
-              <li>Не опубликованные</li>
-              <li>Корзина</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="windows__folder__body__right">
-        <div class="windows__folder__body__right__wrapper__counter">
-          Показано <span id="postsCountVuew">all</span> из <span id="postsCountTotal">Х</span> файлов
-        </div>
+    <!--        <div class="windows__folder__body__left__menuWrapper">-->
+    <!--          <div class="windows__folder__body__left__menuWrapper__header">-->
+    <!--            <span>Директории</span>-->
+    <!--            <img-->
+    <!--              src="../assets/img/folder-leftmenu-icon.png"-->
+    <!--              alt="hider-icon"-->
+    <!--            >-->
+    <!--          </div>-->
+    <!--          <div class="windows__folder__body__left__menuWrapper__body">-->
+    <!--            <ul class="disable-link">-->
+    <!--              <li>Категории</li>-->
+    <!--              <li>Не опубликованные</li>-->
+    <!--              <li>Корзина</li>-->
+    <!--            </ul>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="windows__folder__body__right">-->
+    <!--        <div class="windows__folder__body__right__wrapper__counter">-->
+    <!--          Показано <span id="postsCountVuew">all</span> из <span id="postsCountTotal">Х</span> файлов-->
+    <!--        </div>-->
 
-        <div class="windows__folder__body__right__wrapper">
-          <p>В процессе разработки...</p>
-          <!--post template-->
-          <div class="windows__folder__body__right__file">
-            <img
-              src="../assets/img/textfile-icon.png"
-              alt="text-file"
-            >
-            <div
-              class="fileinfo__wrapper"
-              title="TEST TITLE"
-            >
-              <div class="fileinfo__title" />
-              <div class="fileinfo__status_pub">
-                Date
-              </div>
-              <div class="d-flex">
-                <div class="fileinfo__views">
-                  Просмотры: <span class="views_count" />
-                </div>
-                <div class="fileinfo__status">
-                  Статус: <span class="draft_or_pub" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!--        <div class="windows__folder__body__right__wrapper">-->
+    <!--          <p>В процессе разработки...</p>-->
+    <!--          &lt;!&ndash;post template&ndash;&gt;-->
+    <!--          <div class="windows__folder__body__right__file">-->
+    <!--            <img-->
+    <!--              src="../assets/img/textfile-icon.png"-->
+    <!--              alt="text-file"-->
+    <!--            >-->
+    <!--            <div-->
+    <!--              class="fileinfo__wrapper"-->
+    <!--              title="TEST TITLE"-->
+    <!--            >-->
+    <!--              <div class="fileinfo__title" />-->
+    <!--              <div class="fileinfo__status_pub">-->
+    <!--                Date-->
+    <!--              </div>-->
+    <!--              <div class="d-flex">-->
+    <!--                <div class="fileinfo__views">-->
+    <!--                  Просмотры: <span class="views_count" />-->
+    <!--                </div>-->
+    <!--                <div class="fileinfo__status">-->
+    <!--                  Статус: <span class="draft_or_pub" />-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
 </template>
 
 <script>
 export default {
-  name: "WindowWrapper"
+  name: "WindowWrapper",
+  data() {
+    return {
+      drugAndDropWindow: false,
+      drugAndDropOffsetY: 0,
+      drugAndDropOffsetX: 0,
+    }
+  },
+  methods: {
+    headerMouseDown(event) {
+      this.drugAndDropWindow = true;
+      this.drugAndDropOffsetY = event.offsetY;
+      this.drugAndDropOffsetX = event.offsetX;
+    },
+    headerMouseMove(event) {
+      if (this.drugAndDropWindow) {
+        event.target.parentElement.style.top = `${event.clientY - Number(this.drugAndDropOffsetY)}px`;
+        event.target.parentElement.style.left = `${event.clientX - Number(this.drugAndDropOffsetX)}px`;
+      }
+    }
+  }
 }
 </script>
 
@@ -111,15 +136,17 @@ export default {
   position: absolute;
   width: 70%;
   height: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  top: 5%;
+  left: 60px;
+  top: 30px;
 
   background-color: white;
   border: 1px solid #003ddc;
   border-radius: 8px 8px 0 0;
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: 100%;
+  }
 
   &__header {
     background: linear-gradient(180deg, rgba(45, 137, 251, 1) 10%, rgba(0, 85, 235, 1) 60%, rgba(4, 104, 251, 1) 100%);;
@@ -135,6 +162,7 @@ export default {
     &__name {
       display: flex;
       align-items: center;
+
       > img {
         padding: 0px 5px;
       }
@@ -200,9 +228,9 @@ toDo:
   height: 100%;
   min-width: 250px;
   background: linear-gradient(
-      180deg,
-      rgba(122, 161, 230, 1) 19%,
-      rgba(99, 118, 214, 1) 70%
+          180deg,
+          rgba(122, 161, 230, 1) 19%,
+          rgba(99, 118, 214, 1) 70%
   );
 }
 
@@ -232,9 +260,9 @@ toDo:
 
 .windows__folder__body__left__menuWrapper__header {
   background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) 19%,
-      rgba(199, 212, 247, 1) 70%
+          90deg,
+          rgba(255, 255, 255, 1) 19%,
+          rgba(199, 212, 247, 1) 70%
   );
   padding: 5px 10px;
 

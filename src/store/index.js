@@ -4,19 +4,26 @@ export default createStore({
   state: {
     showStartMenu: false,
     activeWindow: 'Posts',
-    windows: {
-      Posts: {
-        cssClass: 'open',
+    windows: [
+      {
+        name: 'Posts',
+        cssClass: 'open'
       },
-      Users: {
-        cssClass: 'hide',
+      {
+        name: 'Users',
+        cssClass: 'open'
       },
-      Other: {
-        cssClass: 'close',
-      }
+      {
+        name: 'Other',
+        cssClass: 'close'
+      },
+    ]
+  },
+  getters: {
+    getWindowsForBottomBar(state) {
+      return state.windows.filter(window => window.cssClass !== 'close');
     }
   },
-  getters: {},
   mutations: {
     toggleShowStartMenu(state, action) {
       if (action === 'hide') {
@@ -27,7 +34,7 @@ export default createStore({
     },
     changeWindowsStatus(state, args) {
       // args = {windowName String, newClass String};
-      state.windows[args.windowName].cssClass = args.newClass;
+      state.windows.find(el => el.name == args.windowName).cssClass = args.newClass;
     },
     setActiveWindow(state, newActiveWindow) {
       state.activeWindow = newActiveWindow;

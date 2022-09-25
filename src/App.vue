@@ -2,8 +2,14 @@
   <div @click="toggleShowStartMenu('hide')">
     <!-- posts window -->
     <WindowWrapper
-      :class="windows.Posts.cssClass"
-      window-name="Posts"
+      v-for="window in windows"
+      :key="window.name"
+      :class="[
+        window.cssClass,
+        {'active open': activeWindow == window.name}
+      ]"
+      :window-name="window.name"
+      @click="setActiveWindow(window.name)"
     />
     <!-- end posts window -->
 
@@ -27,10 +33,10 @@ export default {
     WindowWrapper
   },
   computed: {
-    ...mapState(['windows'])
+    ...mapState(['windows', 'activeWindow'])
   },
   methods: {
-    ...mapMutations(['toggleShowStartMenu'])
+    ...mapMutations(['toggleShowStartMenu', 'setActiveWindow'])
   }
 };
 </script>
@@ -56,6 +62,7 @@ body {
   &:hover {
     filter: brightness(1.1);
   }
+
   &:active {
     filter: brightness(0.9) !important;
   }

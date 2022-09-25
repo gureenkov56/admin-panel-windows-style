@@ -52,17 +52,17 @@
       </button>
 
       <div
-        v-for="(value, key) in windows"
-        :key="key"
-        :class="{'active' : activeWindow === key}"
+        v-for="window in getWindowsForBottomBar"
+        :key="window.name"
+        :class="{'active' : activeWindow === window.name}"
         class="bottom__programs"
-        @click="setActiveWindow(key)"
+        @click="setActiveWindow(window.name)"
       >
         <img
           src="../assets/img/folder-icon.png"
           alt="folder-icon"
         >
-        <span>{{ key }}</span>
+        <span>{{ window.name }}</span>
       </div>
     </div>
 
@@ -76,12 +76,13 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from "vuex";
+import {mapState, mapMutations, mapGetters} from "vuex";
 
 export default {
   name: "BottomBar",
   computed: {
-    ...mapState(['showStartMenu', 'windows', 'activeWindow'])
+    ...mapState(['showStartMenu', 'windows', 'activeWindow']),
+    ...mapGetters(['getWindowsForBottomBar'])
   },
   methods: {
     ...mapMutations(['toggleShowStartMenu', 'setActiveWindow'])

@@ -1,5 +1,8 @@
 <template>
   <div class="window">
+    <!-- todo: * Настроить сворачивание и открытие window через его state -->
+
+
     <div
       class="window__header"
       @mousedown="headerMouseDown($event)"
@@ -11,7 +14,7 @@
           src="../assets/img/folder-icon.png"
           alt="folder-icon"
         >
-        <span>Posts</span>
+        <span>{{ windowName }}</span>
       </span>
       <div class="window__header__btn-wrapper">
         <button
@@ -120,7 +123,9 @@ import {mapMutations, mapState} from "vuex";
 
 export default {
   name: "WindowWrapper",
-  props: ['windowName'],
+  props: {
+    'windowName': String
+  },
   data() {
     return {
       drugAndDropWindow: false,

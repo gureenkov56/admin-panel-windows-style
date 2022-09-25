@@ -1,6 +1,12 @@
 <template>
   <div @click="toggleShowStartMenu('hide')">
-    <WindowWrapper />
+    <!-- posts window -->
+    <WindowWrapper
+      :class="windows.Posts.cssClass"
+      window-name="Posts"
+    />
+    <!-- end posts window -->
+
     <DesktopGrid />
     <BottomBar />
   </div>
@@ -10,7 +16,7 @@
 
 import DesktopGrid from "@/components/DesktopGrid";
 import BottomBar from "@/components/BottomBar";
-import {mapMutations} from "vuex";
+import {mapMutations, mapState} from "vuex";
 import WindowWrapper from "@/components/WindowWrapper";
 
 export default {
@@ -19,6 +25,9 @@ export default {
     DesktopGrid,
     BottomBar,
     WindowWrapper
+  },
+  computed: {
+    ...mapState(['windows'])
   },
   methods: {
     ...mapMutations(['toggleShowStartMenu'])
@@ -50,5 +59,9 @@ body {
   &:active {
     filter: brightness(0.9) !important;
   }
+}
+
+.d-flex {
+  display: flex;
 }
 </style>

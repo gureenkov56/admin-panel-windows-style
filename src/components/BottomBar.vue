@@ -39,16 +39,32 @@
   </div>
 
   <div class="bottom__menu">
-    <button
-      class="bottom__menu__start-btn windows-btn"
-      @click.stop="toggleShowStartMenu"
-    >
-      <img
-        src="../assets/img/start-btn-icon.png"
-        alt="start"
+    <div class="d-flex">
+      <button
+        class="bottom__menu__start-btn windows-btn"
+        @click.stop="toggleShowStartMenu"
       >
-      <span>ПУСК</span>
-    </button>
+        <img
+          src="../assets/img/start-btn-icon.png"
+          alt="start"
+        >
+        <span>ПУСК</span>
+      </button>
+
+      <div
+        v-for="(value, key) in windows"
+        :key="key"
+        :class="{'active' : activeWindow === key}"
+        class="bottom__programs"
+        @click="setActiveWindow(key)"
+      >
+        <img
+          src="../assets/img/folder-icon.png"
+          alt="folder-icon"
+        >
+        <span>{{ key }}</span>
+      </div>
+    </div>
 
     <div class="bottom__menu__right-block">
       <span>RU</span>
@@ -65,10 +81,10 @@ import {mapState, mapMutations} from "vuex";
 export default {
   name: "BottomBar",
   computed: {
-    ...mapState(['showStartMenu'])
+    ...mapState(['showStartMenu', 'windows', 'activeWindow'])
   },
   methods: {
-    ...mapMutations(['toggleShowStartMenu'])
+    ...mapMutations(['toggleShowStartMenu', 'setActiveWindow'])
   }
 }
 </script>
@@ -182,24 +198,25 @@ export default {
 
 .bottom {
   &__menu {
-     position: absolute;
-     bottom: 0;
-     width: 100%;
-     height: 35px;
-     background: linear-gradient(
-         180deg,
-         rgba(80, 126, 237, 1) 7%,
-         rgba(31, 88, 193, 1) 22%,
-         rgb(69, 120, 230) 100%
-     );
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 35px;
+    background: linear-gradient(
+            180deg,
+            rgba(80, 126, 237, 1) 7%,
+            rgba(31, 88, 193, 1) 22%,
+            rgb(69, 120, 230) 100%
+    );
 
-     z-index: 100;
-     display: flex;
-     justify-content: space-between;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
 
     &__start-btn {
       width: 100px;
       height: 100%;
+      margin-right: 5px;
 
       border-radius: 90% 10% 10% 90% / 0 50% 50% 0;
       border: none;
@@ -246,7 +263,36 @@ export default {
         margin-left: 20px;
       }
     }
-   }
+  }
+
+  &__programs {
+    color: white;
+    background: rgb(142, 181, 240);
+    background: linear-gradient(0deg, rgb(70, 141, 244) 0%, rgb(55, 127, 245) 15%, rgb(55, 127, 245) 85%, rgb(70, 141, 244) 100%);
+    margin: 5px 3px;
+    padding-top: 2px;
+    width: 180px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px 0px #2e5dbd;
+    font-size: .8rem;
+
+    display: flex;
+    align-items: center;
+
+    > img {
+      padding: 0 5px;
+      margin-top: -2px;
+    }
+
+    &.active {
+      background: rgb(36, 100, 229);
+      box-shadow: inset 2px 2px 2px rgb(22, 64, 147);
+    }
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+  }
 
 }
 </style>

@@ -14,18 +14,28 @@
         <span>Posts</span>
       </span>
       <div class="window__header__btn-wrapper">
-        <button class="window__header__btn blue windows-btn">
+        <button
+          class="window__header__btn blue windows-btn"
+          @click="changeWindowsStatus({'windowName': windowName, 'newClass': 'hide'})"
+        >
           _
         </button>
-        <button class="window__header__btn  blue windows-btn">
+        <button
+          class="window__header__btn  blue windows-btn"
+          @click="windowFullScreen"
+        >
           □
         </button>
-        <button class="window__header__btn red windows-btn">
+        <button
+          class="window__header__btn red windows-btn"
+          @click="changeWindowsStatus({'windowName': windowName, 'newClass': 'close'})"
+        >
           ×
         </button>
       </div>
     </div>
 
+    {{ windowName }}
     <!--    <div class="windows__folder__body">-->
     <!--      <div class="windows__folder__body__left">-->
     <!--        <div class="windows__folder__body__left__menuWrapper">-->
@@ -106,8 +116,11 @@
 </template>
 
 <script>
+import {mapMutations, mapState} from "vuex";
+
 export default {
   name: "WindowWrapper",
+  props: ['windowName'],
   data() {
     return {
       drugAndDropWindow: false,
@@ -116,6 +129,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['changeWindowsStatus']),
     headerMouseDown(event) {
       this.drugAndDropWindow = true;
       this.drugAndDropOffsetY = event.offsetY;
@@ -126,6 +140,12 @@ export default {
         event.target.parentElement.style.top = `${event.clientY - Number(this.drugAndDropOffsetY)}px`;
         event.target.parentElement.style.left = `${event.clientX - Number(this.drugAndDropOffsetX)}px`;
       }
+    },
+    windowFullScreen(event) {
+      event.target.closest('.window').classList.toggle('full-screen');
+    },
+    windowHide(event) {
+      event.target.closest('.window').classList.add('d-none');
     }
   }
 }
@@ -133,6 +153,8 @@ export default {
 
 <style lang="scss" scoped>
 .window {
+  display: none;
+
   position: absolute;
   width: 70%;
   height: 80%;
@@ -142,6 +164,23 @@ export default {
   background-color: white;
   border: 1px solid #003ddc;
   border-radius: 8px 8px 0 0;
+
+  &.full-screen {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &.open {
+    display: block;
+  }
+
+  &.active {
+    z-index: 100;
+  }
 
   @media screen and (max-width: 500px) {
     width: 100%;

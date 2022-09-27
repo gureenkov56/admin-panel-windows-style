@@ -103,6 +103,7 @@ export default {
   background-color: #fff;
   border-radius: 5px 5px 0 0;
   box-shadow: 3px 3px 5px black;
+  z-index: 10000;
 
   &__header {
     background-color: #ccc;
@@ -206,6 +207,7 @@ export default {
     position: absolute;
     bottom: 0;
     width: 100%;
+    max-width: 100%;
     height: 35px;
     background: linear-gradient(
             180deg,
@@ -217,6 +219,10 @@ export default {
     z-index: 1000;
     display: flex;
     justify-content: space-between;
+
+    & > div:first-child {
+      max-width: calc(100% - 125px);
+    }
 
     &__start-btn {
       width: 100px;
@@ -250,6 +256,7 @@ export default {
     &__right-block {
       display: flex;
       color: white;
+      z-index: 2;
 
       span {
         padding-top: 5px;
@@ -296,6 +303,10 @@ export default {
 
     &:hover {
       filter: brightness(1.1);
+    }
+
+    @media screen and (max-width: 600px) {
+      display: none;
     }
   }
 

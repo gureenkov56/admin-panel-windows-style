@@ -1,8 +1,5 @@
 <template>
   <div class="window">
-    <!-- todo: * Настроить сворачивание и открытие window через его state -->
-
-
     <div
       class="window__header"
       @mousedown="headerMouseDown($event)"
@@ -39,6 +36,17 @@
     </div>
 
     {{ windowName }}
+    <!-- POSTS -->
+    <div v-if="windowName === 'Posts' ">
+      <div
+        v-for="post in posts.postStore"
+        :key="post.id"
+      >
+        {{ post.title }}
+      </div>
+      {{ posts }}
+    </div>
+    <!-- END POSTS -->
     <!--    <div class="windows__folder__body">-->
     <!--      <div class="windows__folder__body__left">-->
     <!--        <div class="windows__folder__body__left__menuWrapper">-->
@@ -133,8 +141,15 @@ export default {
       drugAndDropOffsetX: 0,
     }
   },
+  computed: {
+    ...mapState(['posts']),
+  },
   methods: {
-    ...mapMutations(['changeWindowsStatus', 'toggleFullScreenWindow']),
+    ...mapMutations([
+      'changeWindowsStatus',
+      'toggleFullScreenWindow',
+      'getPosts'
+    ]),
     headerMouseDown(event) {
       this.drugAndDropWindow = true;
       this.drugAndDropOffsetY = event.offsetY;
@@ -151,10 +166,16 @@ export default {
       event.target.closest('.window').classList.add('d-none');
     },
     fullScreenToogle(event, windowName) {
-      event.target.parentElement.top = '0px';
-      event.target.parentElement.left = '0px';
+      const window = event.target.closest('.window');
+      window.style.top = '0px';
+      window.style.left = '0px';
       this.toggleFullScreenWindow(windowName);
-    }
+    },
+  },
+  beforeMount() {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+        .then(response => response.json())
+        .then(json => this.getPosts(json))
   }
 }
 </script>

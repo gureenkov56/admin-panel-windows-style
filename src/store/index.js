@@ -1,5 +1,6 @@
 import {createStore} from 'vuex';
-// todo: offsetY and offsetX in store
+import posts from './posts'
+
 export default createStore({
   state: {
     showStartMenu: false,
@@ -7,16 +8,11 @@ export default createStore({
     windows: [
       {
         name: 'Posts',
-        cssClass: 'open',
-        fullScreen: true
-      },
-      {
-        name: 'Users',
-        cssClass: 'open',
+        cssClass: 'close',
         fullScreen: false
       },
       {
-        name: 'Other',
+        name: 'Users',
         cssClass: 'close',
         fullScreen: false
       },
@@ -54,8 +50,10 @@ export default createStore({
     },
     addMaxZIndexToWindow(state, toWindow) {
       state[toWindow].cssClass += 'active';
-    }
+    },
   },
   actions: {},
-  modules: {},
+  modules: {
+    posts
+  },
 });

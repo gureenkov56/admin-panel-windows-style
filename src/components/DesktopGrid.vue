@@ -20,11 +20,9 @@
         <div
           :id="iconFolder.iconName"
           class="desktop__icon__image"
-          @dblclick.stop="openFolder($event)"
         />
         <div
           :id="iconFolder.iconName"
-          @dblclick.stop="openFolder($event)"
         >
           {{ iconFolder.iconName }}
         </div>
@@ -35,6 +33,8 @@
 </template>
 
 <script>
+import {mapMutations} from "vuex";
+
 export default {
   name: "DesktopGrid",
   data() {
@@ -53,6 +53,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['changeWindowsStatus']),
     startDrag(event) {
       event.dataTransfer.setData('dragId', event.target.id);
     },
@@ -64,8 +65,8 @@ export default {
       return this.desktopIcons.find(el => el.placeId == placeIdByGrid)
     },
     openFolder(event) {
-      console.log(event.target.id);
-    }
+      this.changeWindowsStatus({'windowName': event.target.id, newClass: 'open'})
+    },
   }
 }
 </script>

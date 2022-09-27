@@ -19,19 +19,19 @@
       <div class="window__header__btn-wrapper">
         <button
           class="window__header__btn blue windows-btn"
-          @click="changeWindowsStatus({'windowName': windowName, 'newClass': 'hide'})"
+          @click.stop="changeWindowsStatus({'windowName': windowName, 'newClass': 'hide'})"
         >
           _
         </button>
         <button
           class="window__header__btn  blue windows-btn"
-          @click="windowFullScreen"
+          @click.stop="toggleFullScreenWindow(windowName)"
         >
           □
         </button>
         <button
           class="window__header__btn red windows-btn"
-          @click="changeWindowsStatus({'windowName': windowName, 'newClass': 'close'})"
+          @click.stop="changeWindowsStatus({'windowName': windowName, 'newClass': 'close'})"
         >
           ×
         </button>
@@ -134,7 +134,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['changeWindowsStatus']),
+    ...mapMutations(['changeWindowsStatus', 'toggleFullScreenWindow']),
     headerMouseDown(event) {
       this.drugAndDropWindow = true;
       this.drugAndDropOffsetY = event.offsetY;
@@ -145,9 +145,6 @@ export default {
         event.target.parentElement.style.top = `${event.clientY - Number(this.drugAndDropOffsetY)}px`;
         event.target.parentElement.style.left = `${event.clientX - Number(this.drugAndDropOffsetX)}px`;
       }
-    },
-    windowFullScreen(event) {
-      event.target.closest('.window').classList.toggle('full-screen');
     },
     windowHide(event) {
       event.target.closest('.window').classList.add('d-none');

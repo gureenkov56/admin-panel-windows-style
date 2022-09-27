@@ -56,7 +56,7 @@
         :key="window.name"
         :class="{'active' : activeWindow === window.name}"
         class="bottom__programs"
-        @click="setActiveWindow(window.name)"
+        @click="activateAndOpenWindow(window.name)"
       >
         <img
           src="../assets/img/folder-icon.png"
@@ -85,7 +85,11 @@ export default {
     ...mapGetters(['getWindowsForBottomBar'])
   },
   methods: {
-    ...mapMutations(['toggleShowStartMenu', 'setActiveWindow'])
+    ...mapMutations(['toggleShowStartMenu', 'setActiveWindow', 'changeWindowsStatus']),
+    activateAndOpenWindow(windowName) {
+      this.setActiveWindow(windowName);
+      this.changeWindowsStatus({'windowName': windowName, newClass: 'open'});
+    }
   }
 }
 </script>
@@ -210,7 +214,7 @@ export default {
             rgb(69, 120, 230) 100%
     );
 
-    z-index: 100;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
 

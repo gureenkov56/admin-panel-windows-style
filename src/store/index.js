@@ -7,15 +7,18 @@ export default createStore({
     windows: [
       {
         name: 'Posts',
-        cssClass: 'open'
+        cssClass: 'open',
+        fullScreen: true
       },
       {
         name: 'Users',
-        cssClass: 'open'
+        cssClass: 'open',
+        fullScreen: false
       },
       {
         name: 'Other',
-        cssClass: 'close'
+        cssClass: 'close',
+        fullScreen: false
       },
     ]
   },
@@ -35,6 +38,16 @@ export default createStore({
     changeWindowsStatus(state, args) {
       // args = {windowName String, newClass String};
       state.windows.find(el => el.name == args.windowName).cssClass = args.newClass;
+      if (args.newClass !== 'open') {
+        state.activeWindow = null;
+      } else {
+        state.activeWindow = args.windowName;
+      }
+    },
+    toggleFullScreenWindow(state, windowName) {
+      state.activeWindow = windowName;
+      const window = state.windows.find(el => el.name == windowName);
+      window.fullScreen = !window.fullScreen;
     },
     setActiveWindow(state, newActiveWindow) {
       state.activeWindow = newActiveWindow;

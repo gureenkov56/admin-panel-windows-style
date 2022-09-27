@@ -6,7 +6,8 @@
       :key="window.name"
       :class="[
         window.cssClass,
-        {'active open': activeWindow == window.name}
+        {'active': activeWindow == window.name},
+        {'full-screen': window.fullScreen}
       ]"
       :window-name="window.name"
       @click="setActiveWindow(window.name)"
@@ -37,7 +38,8 @@ export default {
   },
   methods: {
     ...mapMutations(['toggleShowStartMenu', 'setActiveWindow'])
-  }
+  },
+  beforeMount() { document.title = 'Админ панель' },
 };
 </script>
 
@@ -48,6 +50,7 @@ export default {
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
+  overflow: hidden;
 }
 
 #app {

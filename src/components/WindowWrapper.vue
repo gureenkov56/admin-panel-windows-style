@@ -25,7 +25,7 @@
         </button>
         <button
           class="window__header__btn  blue windows-btn"
-          @click.stop="toggleFullScreenWindow(windowName)"
+          @click.stop="fullScreenToogle($event, windowName)"
         >
           □
         </button>
@@ -142,12 +142,18 @@ export default {
     },
     headerMouseMove(event) {
       if (this.drugAndDropWindow) {
+        event.target.parentElement.classList.remove('full-screen');
         event.target.parentElement.style.top = `${event.clientY - Number(this.drugAndDropOffsetY)}px`;
         event.target.parentElement.style.left = `${event.clientX - Number(this.drugAndDropOffsetX)}px`;
       }
     },
     windowHide(event) {
       event.target.closest('.window').classList.add('d-none');
+    },
+    fullScreenToogle(event, windowName) {
+      event.target.parentElement.top = '0px';
+      event.target.parentElement.left = '0px';
+      this.toggleFullScreenWindow(windowName);
     }
   }
 }

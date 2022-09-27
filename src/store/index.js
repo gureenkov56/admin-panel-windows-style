@@ -1,5 +1,5 @@
 import {createStore} from 'vuex';
-
+// todo: offsetY and offsetX in store
 export default createStore({
   state: {
     showStartMenu: false,

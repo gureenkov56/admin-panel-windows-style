@@ -1,10 +1,12 @@
 export default {
+  namespaced: true,
   state: {
-    postStore: []
+    posts: [],
+    test: 'test'
   },
   mutations: {
     getPosts(state, posts) {
-      state.postStore = posts;
+      state.posts = posts;
     }
   },
   actions: {

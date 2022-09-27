@@ -8,7 +8,7 @@ export default createStore({
     windows: [
       {
         name: 'Posts',
-        cssClass: 'close',
+        cssClass: 'open',
         fullScreen: false
       },
       {

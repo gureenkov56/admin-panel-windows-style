@@ -34,95 +34,85 @@
         </button>
       </div>
     </div>
-
-    {{ windowName }}
     <!-- POSTS -->
     <div v-if="windowName === 'Posts' ">
-      <div
-        v-for="post in posts.postStore"
-        :key="post.id"
-      >
-        {{ post.title }}
+      <div class="window__folder__body">
+        <div class="window__folder__body__left">
+          <div class="window__folder__body__left__menuWrapper">
+            <div class="window__folder__body__left__menuWrapper__header">
+              <span>Действия</span>
+              <img
+                src="../assets/img/folder-leftmenu-icon.png"
+                alt="hider-icon"
+              >
+            </div>
+            <div class="window__folder__body__left__menuWrapper__body">
+              <ul>
+                <li id="createNewPost">
+                  Создать новый пост
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="window__folder__body__left__menuWrapper">
+            <div class="window__folder__body__left__menuWrapper__header">
+              <span>Сортировка</span>
+              <img
+                src="../assets/img/folder-leftmenu-icon.png"
+                alt="hider-icon"
+              >
+            </div>
+            <div class="window__folder__body__left__menuWrapper__body">
+              <ul class="disable-link">
+                <li>Опубликованные</li>
+                <li>Не опубликованные</li>
+                <li>Корзина</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="window__folder__body__right">
+          <div class="window__folder__body__right__wrapper__counter">
+            Показано {{ posts.length }} из X файлов
+          </div>
+
+          <div class="window__folder__body__right__wrapper">
+            <!--post template-->
+            <div
+              v-for="post in posts"
+              :key="post.id"
+              class="window__folder__body__right__file"
+            >
+              <img
+                src="../assets/img/textfile-icon.png"
+                alt="text-file"
+              >
+              <div
+                class="fileinfo__wrapper"
+                title="TEST TITLE"
+              >
+                <div class="fileinfo__title">
+                  {{ post.title }}
+                </div>
+                <div class="fileinfo__status_pub">
+                  Date
+                </div>
+                <div class="d-flex">
+                  <div class="fileinfo__views">
+                    Просмотры: <span class="views_count" />
+                  </div>
+                  <div class="fileinfo__status">
+                    Статус: <span class="draft_or_pub" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      {{ posts }}
     </div>
     <!-- END POSTS -->
-    <!--    <div class="windows__folder__body">-->
-    <!--      <div class="windows__folder__body__left">-->
-    <!--        <div class="windows__folder__body__left__menuWrapper">-->
-    <!--          <div class="windows__folder__body__left__menuWrapper__header">-->
-    <!--            <span>Действия</span>-->
-    <!--            <img-->
-    <!--              src="../assets/img/folder-leftmenu-icon.png"-->
-    <!--              alt="hider-icon"-->
-    <!--            >-->
-    <!--          </div>-->
-    <!--          <div class="windows__folder__body__left__menuWrapper__body">-->
-    <!--            <ul>-->
-    <!--              <li id="createNewPost">-->
-    <!--                Создать новый пост-->
-    <!--              </li>-->
-    <!--              <li class="disable-link">-->
-    <!--                Опубликовать пост-->
-    <!--              </li>-->
-    <!--              <li class="disable-link">-->
-    <!--                Категории-->
-    <!--              </li>-->
-    <!--            </ul>-->
-    <!--          </div>-->
-    <!--        </div>-->
-
-    <!--        <div class="windows__folder__body__left__menuWrapper">-->
-    <!--          <div class="windows__folder__body__left__menuWrapper__header">-->
-    <!--            <span>Директории</span>-->
-    <!--            <img-->
-    <!--              src="../assets/img/folder-leftmenu-icon.png"-->
-    <!--              alt="hider-icon"-->
-    <!--            >-->
-    <!--          </div>-->
-    <!--          <div class="windows__folder__body__left__menuWrapper__body">-->
-    <!--            <ul class="disable-link">-->
-    <!--              <li>Категории</li>-->
-    <!--              <li>Не опубликованные</li>-->
-    <!--              <li>Корзина</li>-->
-    <!--            </ul>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="windows__folder__body__right">-->
-    <!--        <div class="windows__folder__body__right__wrapper__counter">-->
-    <!--          Показано <span id="postsCountVuew">all</span> из <span id="postsCountTotal">Х</span> файлов-->
-    <!--        </div>-->
-
-    <!--        <div class="windows__folder__body__right__wrapper">-->
-    <!--          <p>В процессе разработки...</p>-->
-    <!--          &lt;!&ndash;post template&ndash;&gt;-->
-    <!--          <div class="windows__folder__body__right__file">-->
-    <!--            <img-->
-    <!--              src="../assets/img/textfile-icon.png"-->
-    <!--              alt="text-file"-->
-    <!--            >-->
-    <!--            <div-->
-    <!--              class="fileinfo__wrapper"-->
-    <!--              title="TEST TITLE"-->
-    <!--            >-->
-    <!--              <div class="fileinfo__title" />-->
-    <!--              <div class="fileinfo__status_pub">-->
-    <!--                Date-->
-    <!--              </div>-->
-    <!--              <div class="d-flex">-->
-    <!--                <div class="fileinfo__views">-->
-    <!--                  Просмотры: <span class="views_count" />-->
-    <!--                </div>-->
-    <!--                <div class="fileinfo__status">-->
-    <!--                  Статус: <span class="draft_or_pub" />-->
-    <!--                </div>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
   </div>
 </template>
 
@@ -142,14 +132,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(['posts']),
+    ...mapState('posts', {
+      'posts': state => state.posts
+    }),
+    ...mapState(['windows'])
   },
   methods: {
     ...mapMutations([
       'changeWindowsStatus',
       'toggleFullScreenWindow',
-      'getPosts'
     ]),
+    ...mapMutations('posts', ['getPosts']),
     headerMouseDown(event) {
       this.drugAndDropWindow = true;
       this.drugAndDropOffsetY = event.offsetY;
@@ -214,6 +207,8 @@ export default {
   @media screen and (max-width: 500px) {
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
   }
 
   &__header {
@@ -272,120 +267,117 @@ export default {
       }
     }
   }
-}
 
-/*
-toDo:
- 1. drag and drop
- 2. clean old styles
- 3. mobile version
-*/
+  &__folder__body {
+    position: absolute;
+    display: flex;
 
-.windows__folder__body {
-  //position: absolute;
-  display: flex;
-  background-color: #ccc;
+    width: 100%;
+    height: calc(100% - 32px);
 
-  width: 100%;
-  height: calc(100% - 32px);
+    font-family: "Open Sans", sans-serif;
 
-  font-family: "Open Sans", sans-serif;
-}
+    &__left {
+      height: 100%;
+      min-width: 250px;
+      background: linear-gradient(
+              180deg,
+              rgba(122, 161, 230, 1) 19%,
+              rgba(99, 118, 214, 1) 70%
+      );
 
-.windows__folder__body__left {
-  height: 100%;
-  min-width: 250px;
-  background: linear-gradient(
-          180deg,
-          rgba(122, 161, 230, 1) 19%,
-          rgba(99, 118, 214, 1) 70%
-  );
-}
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
 
-.windows__folder__body__right {
-  width: 100%;
-  overflow-y: scroll;
-}
+      &__menuWrapper {
+        width: 90%;
+        margin: 20px auto;
+        background-color: #d6dff7;
 
-.windows__folder__body__right__wrapper {
-  margin: 20px;
-  display: flex;
-  flex-wrap: wrap;
-}
+        border: 1px solid white;
+        border-radius: 4px 4px 0 0;
 
-.windows__folder__body__left__menuWrapper {
-  width: 90%;
-  margin: 20px auto;
-  background-color: #d6dff7;
+        color: #215dc6;
+        font-size: 0.8rem;
+        font-weight: bold;
 
-  border: 1px solid white;
-  border-radius: 4px 4px 0 0;
+        &__header {
+          background: linear-gradient(
+                  90deg,
+                  rgba(255, 255, 255, 1) 19%,
+                  rgba(199, 212, 247, 1) 70%
+          );
+          padding: 5px 10px;
 
-  color: #215dc6;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
+          display: flex;
+          justify-content: space-between;
 
-.windows__folder__body__left__menuWrapper__header {
-  background: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 1) 19%,
-          rgba(199, 212, 247, 1) 70%
-  );
-  padding: 5px 10px;
+          > img {
+            width: 19px;
+          }
 
-  display: flex;
-  justify-content: space-between;
-}
+          &:hover {
+            cursor: pointer;
+          }
+        }
 
-.windows__folder__body__left__menuWrapper__header > img {
-  width: 19px;
-}
+        &__body > ul > li:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
 
-.windows__folder__body__left__menuWrapper__header:hover {
-  cursor: pointer;
-}
+    &__right {
+      width: 100%;
+      overflow-y: scroll;
 
-.windows__folder__body__left__menuWrapper__body > ul > li:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
+      &__wrapper {
+        margin: 20px;
+        display: flex;
+        flex-wrap: wrap;
 
-.windows__folder__body__right__wrapper__counter {
-  margin: 10px 20px;
-  text-align: center;
-  font-size: 0.7rem;
-  color: rgb(128, 128, 128);
-}
+        &__counter {
+          margin: 10px 20px;
+          text-align: center;
+          font-size: 0.7rem;
+          color: rgb(128, 128, 128);
+        }
+      }
 
-.windows__folder__body__right__file {
-  width: 350px;
-  height: 80px;
-  display: flex;
-  cursor: pointer;
-}
+      &__file {
+        width: 350px;
+        height: 80px;
+        display: flex;
+        cursor: pointer;
 
-.windows__folder__body__right__file > img {
-  height: 50px;
-  margin-right: 10px;
-}
+        > img {
+          height: 50px;
+          margin-right: 10px;
+        }
 
+        .fileinfo {
+          &__title {
+            font-size: 0.8rem;
+            white-space: nowrap;
+            max-width: 250px;
+            overflow: hidden;
+          }
 
-.fileinfo__title {
-  font-size: 0.8rem;
-  white-space: nowrap;
-  max-width: 250px;
-  overflow: hidden;
-}
+          &__status_pub,
+          &__views,
+          &__status {
+            color: grey;
+            font-size: 0.7rem;
+          }
 
-.fileinfo__status_pub,
-.fileinfo__views,
-.fileinfo__status {
-  color: grey;
-  font-size: 0.7rem;
-}
-
-.fileinfo__status {
-  padding-left: 10px;
+          &__status {
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
